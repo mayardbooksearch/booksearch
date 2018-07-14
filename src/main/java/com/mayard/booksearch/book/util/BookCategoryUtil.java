@@ -8,9 +8,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.io.File;
-import java.io.InputStream;
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
 
@@ -66,8 +63,6 @@ public class BookCategoryUtil {
 
         try {
 
-//            ClassLoader classLoader = getClass().getClassLoader();
-
             setLargeCategories(Arrays.asList(objectMapper.readValue(getClass().getClassLoader().getResourceAsStream(largeCategoryFileName), BookCategory[].class)));
             setKoreanCategories(Arrays.asList(objectMapper.readValue(getClass().getClassLoader().getResourceAsStream(koreanCategoryFileName), BookCategory[].class)));
             setEbookCategories(Arrays.asList(objectMapper.readValue(getClass().getClassLoader().getResourceAsStream(ebookCategoryFileName), BookCategory[].class)));
@@ -77,34 +72,9 @@ public class BookCategoryUtil {
             setGermanCategories(Arrays.asList(objectMapper.readValue(getClass().getClassLoader().getResourceAsStream(germanCategoryFileName), BookCategory[].class)));
             setSpanishCategories(Arrays.asList(objectMapper.readValue(getClass().getClassLoader().getResourceAsStream(spanishCategoryFileName), BookCategory[].class)));
 
-//            File largeFile = new File(classLoader.getResource(largeCategoryFileName).getFile());
-//            setLargeCategories(Arrays.asList(objectMapper.readValue(largeFile, BookCategory[].class)));
-//
-//            File koreanFile = new File(classLoader.getResource(koreanCategoryFileName).getFile());
-//            setKoreanCategories(Arrays.asList(objectMapper.readValue(koreanFile, BookCategory[].class)));
-//
-//            File ebookFile = new File(classLoader.getResource(ebookCategoryFileName).getFile());
-//            setEbookCategories(Arrays.asList(objectMapper.readValue(ebookFile, BookCategory[].class)));
-//
-//            File englishFile = new File(classLoader.getResource(englishCategoryFileName).getFile());
-//            setEnglishCategories(Arrays.asList(objectMapper.readValue(englishFile, BookCategory[].class)));
-//
-//            File japaneseFile = new File(classLoader.getResource(japaneseCategoryFileName).getFile());
-//            setJapaneseCategories(Arrays.asList(objectMapper.readValue(japaneseFile, BookCategory[].class)));
-//
-//            File frenchFile = new File(classLoader.getResource(frenchCategoryFileName).getFile());
-//            setFrenchCategories(Arrays.asList(objectMapper.readValue(frenchFile, BookCategory[].class)));
-//
-//            File germanFile = new File(classLoader.getResource(germanCategoryFileName).getFile());
-//            setGermanCategories(Arrays.asList(objectMapper.readValue(germanFile, BookCategory[].class)));
-//
-//            File spanishFile = new File(classLoader.getResource(spanishCategoryFileName).getFile());
-//            setSpanishCategories(Arrays.asList(objectMapper.readValue(spanishFile, BookCategory[].class)));
-
         } catch (Exception e) {
             logger.error(e.getMessage());
         }
-
     }
 
     public List<BookCategory> getSmallCategories(String categoryId) {
