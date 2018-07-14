@@ -29,7 +29,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider { //
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        UsernamePasswordAuthenticationToken authToken = (UsernamePasswordAuthenticationToken) authentication; //유저가 입력한 정보를 이이디비번으으로만든다.(로그인한 유저아이디비번정보를담는다)
+        UsernamePasswordAuthenticationToken authToken = (UsernamePasswordAuthenticationToken) authentication;
 
         SecurityUser userInfo = (SecurityUser) userService.loadUserByUsername(authToken.getName()); //UserDetailsService에서 유저정보를 불러온다.
 

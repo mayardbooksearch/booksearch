@@ -85,10 +85,17 @@
     </dependencies>
 
     <build>
+        <finalName>booksearch</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <classifier>spring-boot</classifier>
+                    <mainClass>
+                        com.mayard.booksearch.BooksearchApplication
+                    </mainClass>
+                </configuration>
             </plugin>
         </plugins>
     </build>

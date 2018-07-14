@@ -33,9 +33,13 @@
                             <table width="100%" class="table table-striped table-bordered table-hover">
                                 <thead>
                                 <tr>
-                                    <th>검색어</th>
-                                    <th>찾은 갯수</th>
-                                    <th>검색 시간</th>
+                                    <th style="width:20%;">검색어</th>
+                                    <th style="width:10%;">검색 대상</th>
+                                    <th style="width:15%;">대분류</th>
+                                    <th style="width:15%;">소분류</th>
+                                    <th style="width:10%;">정렬</th>
+                                    <th style="width:10%;">찾은 갯수</th>
+                                    <th style="width:20%;">검색 시간</th>
                                 </tr>
                                 </thead>
                                 <tbody id="tbody">
@@ -44,13 +48,17 @@
                                     <#list data as searchHistory>
                                         <tr>
                                             <td>${searchHistory.query}</td>
+                                            <td>${searchHistory.target}</td>
+                                            <td>${searchHistory.largeCategory}</td>
+                                            <td>${searchHistory.smallCategory}</td>
+                                            <td>${searchHistory.sort}</td>
                                             <td>${searchHistory.searchCount}</td>
                                             <td>${searchHistory.searchDate}</td>
                                         </tr>
                                     </#list>
                                 <#else>
                                     <tr>
-                                        <td colspan="3">최근 검색 히스토리가 없습니다.</td>
+                                        <td colspan="7">최근 검색 히스토리가 없습니다.</td>
                                     </tr>
                                 </#if>
                                 </tbody>

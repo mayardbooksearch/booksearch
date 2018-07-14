@@ -33,8 +33,8 @@
                             <table width="100%" class="table table-striped table-bordered table-hover">
                                 <thead>
                                 <tr>
-                                    <th>제목</th>
-                                    <th>북마크한 시간</th>
+                                    <th style="width:60%">제목</th>
+                                    <th style="width:40%">북마크한 시간</th>
                                 </tr>
                                 </thead>
                                 <tbody id="tbody">
@@ -66,7 +66,7 @@
                                     </#list>
                                 <#else>
                                     <tr>
-                                        <td colspan="3">북마크가 없습니다.</td>
+                                        <td colspan="2">북마크가 없습니다.</td>
                                     </tr>
                                 </#if>
                                 </tbody>

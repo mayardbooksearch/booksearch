@@ -23,7 +23,9 @@ var BookSearch = (function() {
         });
 
         $("#size").on("change", function() {
-            searchBook(1);
+            if ($("#query").val() !== "") {
+                searchBook(1);
+            }
         });
 
         // 정렬 select event
@@ -31,6 +33,13 @@ var BookSearch = (function() {
             e.preventDefault();
             $("#sortText").text($(this).text());
             $("#sortText").data("value", $(this).data("value"));
+        });
+
+        // 검색어 타겟 select event
+        $("#targetSelect").find("a").on("click", function(e) {
+            e.preventDefault();
+            $("#targetText").text($(this).text());
+            $("#targetText").data("value", $(this).data("value"));
         });
         
         $("#btnBookmark").show().on("click", function() {
@@ -40,9 +49,79 @@ var BookSearch = (function() {
         $("#btnRemoveBookmark").hide().on("click", function() {
             removeBookmark();
         });
+
+        // 카테고리 이벤트
+        if ($("#largeCategorySelect").length > 0) {
+            initCategoryEvent();
+        }
+    };
+
+    var initCategoryEvent = function() {
+        $("#largeCategorySelect").find("a").on("click", function(e) {
+            e.preventDefault();
+            $("#largeCategoryText").text($(this).text());
+            $("#largeCategoryText").data("value", $(this).data("value"));
+
+            getSmallCategory($(this).data("value"));
+        });
+    };
+
+    var getSmallCategory = function(largeCategoryId) {
+
+        $("#smallCategorySelect").empty();
+        $("#smallCategoryText").text("중분류");
+        $("#smallCategoryText").data("value", "-1");
+
+        $.ajax({
+            url: "/book/category/small/" + largeCategoryId,
+            method: "GET",
+            success: function(res) {
+                renderSmallCategory(res["smallCategoryList"]);
+            },
+            error: function(res, status, xhr) {
+                alert(res["responseText"]);
+            }
+        });
+    };
+
+    var renderSmallCategory = function(smallCategoryList) {
+
+        if (smallCategoryList === null || smallCategoryList.length === 0) {
+            $("#btnSmallCategory").addClass("disabled");
+            return;
+        }
+
+        var innerHTML = '<li><a href="#" data-value="-1">중분류</a></li>';
+        innerHTML += '<li class="divider"></li>';
+
+        $.each(smallCategoryList, function(k, v) {
+            innerHTML += '<li>';
+            innerHTML += '<a href="#" data-value="' + v["id"] + '">' + v["name"] + '</a>'
+            innerHTML += '</li>';
+        });
+
+        $("#smallCategorySelect").append(innerHTML);
+        $("#btnSmallCategory").removeClass("disabled");
+
+        initSmallCategoryEvent();
+    };
+
+    var initSmallCategoryEvent = function() {
+
+        $("#smallCategorySelect").find("a").on("click", function(e) {
+            e.preventDefault();
+            $("#smallCategoryText").text($(this).text());
+            $("#smallCategoryText").data("value", $(this).data("value"));
+        });
     };
 
     var searchBook = function(page) {
+
+        // 중분류 카테고리가 disabled 상태가 아닌데 선택되지 않았을 경우 alert 노출하며 검색 진행하지 않는다.
+        if (!$("#btnSmallCategory").hasClass("disabled") && $("#smallCategoryText").data("value") == -1) {
+            alert("중분류를 선택해주세요.");
+            return false;
+        }
 
         $.ajax({
             url: "/book/search",
@@ -51,7 +130,12 @@ var BookSearch = (function() {
                 "query": $("#query").val(),
                 "page": page,
                 "size": $("#size").val(),
-                "sort": $("#sortText").data("value")
+                "sort": $("#sortText").data("value"),
+                "target": $("#targetText").data("value"),
+                "largeCategory": $("#largeCategoryText").data("value"),
+                "largeCategoryText": $("#largeCategoryText").text(),
+                "smallCategory": $("#smallCategoryText").data("value"),
+                "smallCategoryText": $("#smallCategoryText").text()
             },
             success: function(result) {
                 renderingResult(result);
@@ -161,6 +245,9 @@ var BookSearch = (function() {
     };
 
     var renderModalDetail = function($tr, duplicatedBookmark) {
+
+        $("#btnBookmark").show();
+        $("#btnRemoveBookmark").hide().data("bookmark-no", "");
 
         $("#modalTitle").text($tr.find("input[name='title']").val());
         $("#modalCategory").text($tr.find("input[name='category']").val());

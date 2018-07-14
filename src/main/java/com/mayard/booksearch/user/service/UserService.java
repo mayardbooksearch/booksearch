@@ -62,7 +62,7 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
 
-        BookUser bookUser = userRepository.findByUserId(userId);
+        BookUser bookUser = userRepository.findByUserId(userId.toLowerCase());
 
         if (bookUser == null) {
             throw new UsernameNotFoundException(messageUtil.getMessage("user.id.invalid"));
@@ -74,8 +74,13 @@ public class UserService implements UserDetailsService {
     public SecurityUser getLoginUser() {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        SecurityUser user = (SecurityUser) authentication.getPrincipal();
+        Object object = authentication.getPrincipal();
 
+        if (object == null || object.equals("anonymousUser")) {
+            return null;
+        }
+
+        SecurityUser user = (SecurityUser) authentication.getPrincipal();
         return user;
     }
 

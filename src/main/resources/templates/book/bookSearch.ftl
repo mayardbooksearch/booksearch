@@ -26,48 +26,41 @@
                 <div class="panel-heading">
                     책 검색
                     <div class="pull-right">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                <span id="largeCategoryText">대분류</span>
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu pull-right" role="menu" id="largeCategorySelect">
-                                <li><a href="#" data-value="X">대분류</a>
-                                <li class="divider"></li>
-                                <li><a href="#" data-value="accuracy">정확도순</a>
-                                </li>
-                                <li><a href="#" data-value="recency">최신순</a>
-                                </li>
-                                <li><a href="#" data-value="sales">판매량순</a>
-                                </li>
-                            </ul>
-                        </div>
 
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                <span id="">중분류</span>
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu pull-right" role="menu" id="">
-                                <li><a href="#" data-value="X">중분류</a>
-                                <li class="divider"></li>
-                                <li><a href="#" data-value="accuracy">정확도순</a>
-                                </li>
-                                <li><a href="#" data-value="recency">최신순</a>
-                                </li>
-                                <li><a href="#" data-value="sales">판매량순</a>
-                                </li>
-                            </ul>
-                        </div>
+                        <#if largeCategoryList?? && largeCategoryList?has_content>
+                            <div class="btn-group">
+                                <button style="width:100px;" type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                    <span id="largeCategoryText">대분류</span>
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu pull-right" role="menu" id="largeCategorySelect">
+                                    <li><a href="#" data-value="-1">대분류</a></li>
+                                    <li class="divider"></li>
+                                    <#list largeCategoryList as largeCategory>
+                                        <li>
+                                            <a href="#" data-value="${largeCategory.id}">${largeCategory.name}</a>
+                                        </li>
+                                    </#list>
+                                </ul>
+                            </div>
+
+                            <div class="btn-group">
+                                <button style="width:100px;" id="btnSmallCategory" type="button" class="disabled btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                    <span id="smallCategoryText">중분류</span>
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu pull-right" role="menu" id="smallCategorySelect">
+                                </ul>
+                            </div>
+                        </#if>
+
 
                         <div class="btn-group">
                             <button style="width:72px;" type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                <span id="sortText">정렬</span>
+                                <span id="sortText" data-value="accuracy">정확도순</span>
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu pull-right" role="menu" id="sortSelect">
-                                <li><a href="#" data-value="accuracy">정렬(정확도순)</a>
-                                <li class="divider"></li>
                                 <li><a href="#" data-value="accuracy">정확도순</a>
                                 </li>
                                 <li><a href="#" data-value="recency">최신순</a>
@@ -94,7 +87,29 @@
                         </div>
                         <div class="col-sm-6">
                             <div id="dataTables-example_filter" class="dataTables_filter">
-                                <label>Search:
+                                <div class="btn-group">
+                                    <button style="width:72px; height:30px;" type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                        <span id="targetText" data-value="all">전체</span>
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu pull-right" role="menu" id="targetSelect">
+                                        <li><a href="#" data-value="all">전체</a>
+                                        </li>
+                                        <li><a href="#" data-value="title">제목</a>
+                                        </li>
+                                        <li><a href="#" data-value="isbn">isbn</a>
+                                        </li>
+                                        <li><a href="#" data-value="keyword">주제어</a>
+                                        </li>
+                                        <li><a href="#" data-value="contents">목차</a>
+                                        </li>
+                                        <li><a href="#" data-value="overview">책소개</a>
+                                        </li>
+                                        <li><a href="#" data-value="publisher">출판사</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <label>
                                     <input id="query" type="search" style="display: inline-block;width: auto;vertical-align: middle;" class="form-control input-sm" placeholder="Search" aria-controls="dataTables-example">
                                 </label>
                             </div>
@@ -106,11 +121,11 @@
                             <table width="100%" class="table table-striped table-bordered table-hover">
                                 <thead>
                                 <tr>
-                                    <th>제목</th>
-                                    <th>저자</th>
-                                    <th>출판사</th>
-                                    <th>출판 날짜</th>
-                                    <th>상태</th>
+                                    <th style="width:30%;">제목</th>
+                                    <th style="width:30%;">저자</th>
+                                    <th style="width:10%;">출판사</th>
+                                    <th style="width:20%;">출판 날짜</th>
+                                    <th style="width:10%;">상태</th>
                                 </tr>
                                 </thead>
                                 <tbody id="tbody">

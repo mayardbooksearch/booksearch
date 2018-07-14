@@ -43,12 +43,36 @@ public class BookService {
 
         ApiResponseVo responseVo = apiService.searchBook(requestVo);
 
+        // 카테고리를 선택하지 않았으면 "-" 로 저장한다.
+        if (requestVo.getLargeCategory() < 0) {
+            requestVo.setLargeCategoryText("-");
+        }
+        if (requestVo.getSmallCategory() < 0) {
+            requestVo.setSmallCategoryText("-");
+        }
+
         // 검색 결과 유무 상관없이 마지막 검색내용과 다를 경우 검색 히스토리에 저장
         SearchHistory lastHistory = searchHistoryRepository.findFirstByUserNoOrderBySearchDateDesc(user.getUserNo());
-        if (lastHistory == null || !lastHistory.getQuery().equals(requestVo.getQuery())) {
-            SearchHistory searchHistory = new SearchHistory(requestVo.getQuery(), LocalDateTime.now().toString());
-            searchHistory.setUserNo(user.getUserNo());
-            searchHistory.setSearchCount(responseVo.getMeta().getPageable_count());
+
+        if (lastHistory != null &&
+                lastHistory.getQuery().equals(requestVo.getQuery()) &&
+                lastHistory.getTarget().equals(requestVo.getTarget().getName()) &&
+                lastHistory.getLargeCategory().equals(requestVo.getLargeCategoryText()) &&
+                lastHistory.getSmallCategory().equals(requestVo.getSmallCategoryText()) &&
+                lastHistory.getSort().equals(requestVo.getSort().getName())) {
+
+            return responseVo;
+        } else {
+
+            SearchHistory searchHistory = new SearchHistory(requestVo.getQuery(),
+                    LocalDateTime.now().toString(),
+                    requestVo.getTarget().getName(),
+                    user.getUserNo(),
+                    responseVo.getMeta().getPageable_count(),
+                    requestVo.getLargeCategoryText(),
+                    requestVo.getSmallCategoryText(),
+                    requestVo.getSort().getName());
+
             searchHistoryRepository.save(searchHistory);
         }
 

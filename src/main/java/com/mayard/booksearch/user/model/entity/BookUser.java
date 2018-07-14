@@ -24,7 +24,7 @@ public class BookUser {
     public BookUser(){}
 
     public BookUser(String userId, String password) {
-        this.userId = userId;
+        this.userId = userId.toLowerCase();
         this.password = password;
     }
 
@@ -41,7 +41,7 @@ public class BookUser {
     }
 
     public void setUserId(String userId) {
-        this.userId = userId;
+        this.userId = userId.toLowerCase();
     }
 
     public String getPassword() {

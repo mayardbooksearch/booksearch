@@ -24,11 +24,34 @@ public class SearchHistory {
     @Column(name = "search_count")
     private int searchCount;
 
+    @Column(name = "large_category")
+    private String largeCategory;
+
+    @Column(name = "small_category")
+    private String smallCategory;
+
+    @Column(name = "sort")
+    private String sort;
+
+    @Column(name = "target")
+    private String target;
+
     public SearchHistory(){}
 
     public SearchHistory(String query, String searchDate) {
         this.query = query;
         this.searchDate = searchDate;
+    }
+
+    public SearchHistory(String query, String searchDate, String target, int userNo, int searchCount, String largeCategory, String smallCategory, String sort) {
+        this.query = query;
+        this.searchDate = searchDate;
+        this.target = target;
+        this.userNo = userNo;
+        this.searchCount = searchCount;
+        this.largeCategory = largeCategory;
+        this.smallCategory = smallCategory;
+        this.sort = sort;
     }
 
     public int getHistoryNo() {
@@ -69,6 +92,39 @@ public class SearchHistory {
 
     public void setSearchCount(int searchCount) {
         this.searchCount = searchCount;
+    }
+
+
+    public String getLargeCategory() {
+        return largeCategory;
+    }
+
+    public void setLargeCategory(String largeCategory) {
+        this.largeCategory = largeCategory;
+    }
+
+    public String getSmallCategory() {
+        return smallCategory;
+    }
+
+    public void setSmallCategory(String smallCategory) {
+        this.smallCategory = smallCategory;
+    }
+
+    public String getSort() {
+        return sort;
+    }
+
+    public void setSort(String sort) {
+        this.sort = sort;
+    }
+
+    public String getTarget() {
+        return target;
+    }
+
+    public void setTarget(String target) {
+        this.target = target;
     }
 
     @Override

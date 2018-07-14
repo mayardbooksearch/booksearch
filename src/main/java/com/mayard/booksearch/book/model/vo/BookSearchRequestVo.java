@@ -1,21 +1,18 @@
 package com.mayard.booksearch.book.model.vo;
 
-import com.mayard.booksearch.book.enumeration.BookCategory;
 import com.mayard.booksearch.book.enumeration.BookSort;
 import com.mayard.booksearch.book.enumeration.BookTarget;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.Id;
 
 public class BookSearchRequestVo {
 
     private String query;
 
     @Enumerated(EnumType.STRING)
-    private BookSort sort;
+    private BookSort sort = BookSort.accuracy;
 
     private int page = 1;
 
@@ -24,24 +21,19 @@ public class BookSearchRequestVo {
     @Enumerated(EnumType.STRING)
     private BookTarget target;
 
-    @Enumerated(EnumType.STRING)
-    private BookCategory category;
+    private int category = -1;
+
+    private int largeCategory = -1;
+    private int smallCategory = -1;
+
+    private String largeCategoryText;
+    private String smallCategoryText;
 
     public BookSearchRequestVo(){}
 
     public BookSearchRequestVo(String query) {
         this.query = query;
     }
-
-    public BookSearchRequestVo(String query, BookSort sort, int page, int size, BookTarget target, BookCategory category) {
-        this.query = query;
-        this.sort = sort;
-        this.page = page;
-        this.size = size;
-        this.target = target;
-        this.category = category;
-    }
-
 
     public String getQuery() {
         return query;
@@ -83,12 +75,45 @@ public class BookSearchRequestVo {
         this.target = target;
     }
 
-    public BookCategory getCategory() {
+    public int getCategory() {
         return category;
     }
 
-    public void setCategory(BookCategory category) {
+    public void setCategory(int category) {
         this.category = category;
+    }
+
+    public int getLargeCategory() {
+        return largeCategory;
+    }
+
+    public void setLargeCategory(int largeCategory) {
+        this.largeCategory = largeCategory;
+    }
+
+    public int getSmallCategory() {
+        return smallCategory;
+    }
+
+    public void setSmallCategory(int smallCategory) {
+        this.smallCategory = smallCategory;
+    }
+
+
+    public String getLargeCategoryText() {
+        return largeCategoryText;
+    }
+
+    public void setLargeCategoryText(String largeCategoryText) {
+        this.largeCategoryText = largeCategoryText;
+    }
+
+    public String getSmallCategoryText() {
+        return smallCategoryText;
+    }
+
+    public void setSmallCategoryText(String smallCategoryText) {
+        this.smallCategoryText = smallCategoryText;
     }
 
     @Override

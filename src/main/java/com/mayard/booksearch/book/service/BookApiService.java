@@ -39,8 +39,11 @@ public class BookApiService {
                 .queryParam("target", requestVo.getTarget())
                 ;
 
-        if (requestVo.getCategory() != null) {
-            uriBuilder.queryParam("category", requestVo.getCategory().getCategoryNo());
+        // 미분류
+        if (requestVo.getLargeCategory() == 0) {
+            uriBuilder.queryParam("category", requestVo.getLargeCategory());
+        } else if (requestVo.getSmallCategory() > 0) {
+            uriBuilder.queryParam("category", requestVo.getSmallCategory());
         }
 
         ResponseEntity<ApiResponseVo> responseEntity = restTemplate.exchange(uriBuilder.build().encode().toUri(), HttpMethod.GET, entity, ApiResponseVo.class);

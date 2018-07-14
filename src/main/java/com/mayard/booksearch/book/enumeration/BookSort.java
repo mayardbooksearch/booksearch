@@ -1,7 +1,7 @@
 package com.mayard.booksearch.book.enumeration;
 
 public enum BookSort {
-    accuracy("정확도순"), recency("최신순"), sales("판매량");
+    accuracy("정확도순"), recency("최신순"), sales("판매량순");
 
     private String name;
 
