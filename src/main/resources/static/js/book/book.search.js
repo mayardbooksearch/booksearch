@@ -73,7 +73,7 @@ var BookSearch = (function() {
         $("#smallCategoryText").data("value", "-1");
 
         $.ajax({
-            url: "/book/category/small/" + largeCategoryId,
+            url: "/book/search/category/small/" + largeCategoryId,
             method: "GET",
             success: function(res) {
                 renderSmallCategory(res["smallCategoryList"]);
