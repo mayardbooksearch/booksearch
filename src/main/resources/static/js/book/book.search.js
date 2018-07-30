@@ -314,11 +314,8 @@ var BookSearch = (function() {
         var bookmarkNo = $("#btnRemoveBookmark").data("bookmark-no");
 
         $.ajax({
-            url: "/book/bookmark/remove",
-            method: "POST",
-            data: {
-                "bookmarkNo": bookmarkNo
-            },
+            url: "/book/bookmark/" + bookmarkNo,
+            method: "DELETE",
             success: function(res) {
                 alert(res);
                 bookmarkBtnToggle();

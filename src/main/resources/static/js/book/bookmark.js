@@ -75,11 +75,8 @@ var Bookmark = (function() {
     var removeBookmark = function(bookmarkNo) {
 
         $.ajax({
-            url: "/book/bookmark/remove",
-            method: "POST",
-            data: {
-                "bookmarkNo": bookmarkNo
-            },
+            url: "/book/bookmark/" + bookmarkNo,
+            method: "DELETE",
             success: function(res) {
                 alert(res);
                 location.href = "/book/bookmark/list";
