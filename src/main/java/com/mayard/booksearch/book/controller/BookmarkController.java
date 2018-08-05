@@ -33,7 +33,7 @@ public class BookmarkController {
     @Autowired
     private MessageUtil messageUtil;
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @PostMapping
     @ResponseBody
     public ResponseEntity bookmark(Bookmark bookmark) {
 
@@ -51,7 +51,7 @@ public class BookmarkController {
         }
     }
 
-    @RequestMapping(value = "/{bookmarkNo}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/{bookmarkNo}")
     @ResponseBody
     public ResponseEntity removeBookmark(@PathVariable int bookmarkNo) {
 
@@ -63,7 +63,7 @@ public class BookmarkController {
         }
     }
 
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @GetMapping
     public ModelAndView bookmark(@RequestParam(value = "page", defaultValue = "0") int page) {
 
         ModelAndView modelAndView = new ModelAndView();
@@ -78,7 +78,7 @@ public class BookmarkController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/duplicated", method = RequestMethod.POST)
+    @GetMapping(value = "/duplicated")
     @ResponseBody
     public ResponseEntity isDuplicatedBookmark(Bookmark bookmark) {
 

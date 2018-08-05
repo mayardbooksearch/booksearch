@@ -20,7 +20,7 @@
                     <a name="menu_history" href="/book/history"><i class="fa fa-history fa-fw"></i> 최근 검색 히스토리</a>
                 </li>
                 <li>
-                    <a name="menu_bookmark" href="/book/bookmark/list"><i class="fa fa-star fa-fw"></i> 북마크</a>
+                    <a name="menu_bookmark" href="/book/bookmark"><i class="fa fa-star fa-fw"></i> 북마크</a>
                 </li>
             </ul>
         </div>

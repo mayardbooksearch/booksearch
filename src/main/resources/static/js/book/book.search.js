@@ -232,7 +232,7 @@ var BookSearch = (function() {
 
         $.ajax({
             url: "/book/bookmark/duplicated",
-            method: "POST",
+            method: "GET",
             data: params,
             success: function(res) {
                renderModalDetail($tr, res["duplicatedBookmark"]);
@@ -296,7 +296,7 @@ var BookSearch = (function() {
         };
 
         $.ajax({
-            url: "/book/bookmark/add",
+            url: "/book/bookmark",
             method: "POST",
             data: params,
             success: function(res) {

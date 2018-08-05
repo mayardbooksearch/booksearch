@@ -35,7 +35,7 @@ var Bookmark = (function() {
             if ($(this).parents("li").hasClass("disabled") || $(this).parents("li").hasClass("active")) {
                 return;
             }
-            $(this).attr("href", "/book/bookmark/list?page=" + (Number($(this).data("page")) - 1));
+            $(this).attr("href", "/book/bookmark?page=" + (Number($(this).data("page")) - 1));
 
         });
     };
@@ -79,7 +79,7 @@ var Bookmark = (function() {
             method: "DELETE",
             success: function(res) {
                 alert(res);
-                location.href = "/book/bookmark/list";
+                location.href = "/book/bookmark";
             },
             error: function(res, status, xhr) {
                 alert(res["responseText"]);

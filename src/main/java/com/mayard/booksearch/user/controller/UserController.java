@@ -14,9 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -38,8 +36,7 @@ public class UserController {
     @Autowired
     private BookUserValidator bookUserValidator;
 
-
-    @RequestMapping(value = "")
+    @GetMapping
     public String signin(HttpServletRequest request) {
 
         SecurityUser user = userService.getLoginUser();
@@ -51,7 +48,7 @@ public class UserController {
         return "/user/login";
     }
 
-    @RequestMapping(value = "/user/signup", method = RequestMethod.POST)
+    @PostMapping(value = "/user/signup")
     @ResponseBody
     public ResponseEntity signUp(HttpServletRequest request, BookUser bookUser, BindingResult bindingResult) {
 
@@ -75,7 +72,7 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value = "/user/login", method = RequestMethod.POST)
+    @PostMapping(value = "/user/login")
     public String login(BookUser bookUser) {
 
         return "";

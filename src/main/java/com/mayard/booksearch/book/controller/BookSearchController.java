@@ -16,10 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -44,14 +41,14 @@ public class BookSearchController {
     @Autowired
     private BookSearchRequestValidator bookSearchRequestValidator;
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @GetMapping
     public String searchBook(HttpServletRequest request) {
 
         request.setAttribute("largeCategoryList", bookCategoryUtil.getLargeCategories());
         return "/book/bookSearch";
     }
 
-    @RequestMapping(value = "/category/small/{categoryId}", method = RequestMethod.GET)
+    @GetMapping(value = "/category/small/{categoryId}")
     @ResponseBody
     public ResponseEntity getSmallCategories(@PathVariable String categoryId) {
 
@@ -67,7 +64,7 @@ public class BookSearchController {
         }
     }
 
-    @RequestMapping(value = "", method = RequestMethod.POST)
+    @PostMapping
     @ResponseBody
     public ResponseEntity searchBook(BookSearchRequestVo requestVo, BindingResult bindingResult) {
 
